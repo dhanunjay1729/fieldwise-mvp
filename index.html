@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173b34" />
+  <title>Fieldwise — land exchange planner</title>
+  <link rel="stylesheet" href="./src/styles.css?v=survey-desk-4" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Fieldwise</span></div>
+      <span class="topbar-note">Voluntary land exchange planner <span class="demo-pill">Local demo</span></span>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <h1>See the village before and after an exchange.</h1>
+          <p>Compare whole-plot exchanges across land value, farming conditions, travel and each farmer’s cash terms.</p>
+          <p class="intro-disclaimer">Planning demonstration only. No land or money changes hands here.</p>
+        </div>
+        <div class="intro-side"><span>Current holdings</span><strong id="overview-blocks">—</strong><small id="overview-meta">Schematic village map</small></div>
+      </section>
+
+      <div class="workspace">
+        <section class="map-panel" aria-labelledby="map-heading">
+          <div class="panel-heading">
+            <div><h2 id="map-heading">Parcel map</h2><p class="panel-subtitle">One square represents one whole plot.</p></div>
+            <div class="view-switch" role="group" aria-label="Map view">
+              <button id="current-view" class="active" type="button" aria-pressed="true">Today</button>
+              <button id="proposed-view" type="button" aria-pressed="false">Proposal</button>
+            </div>
+          </div>
+          <p class="map-caption">A schematic grid: neighbouring squares touch, but size and position are not surveyed boundaries. Orange outlines mark plots that change hands.</p>
+          <div class="map-wrap">
+            <div class="north-label">N <span>↑</span></div>
+            <div id="parcel-map" class="parcel-map" aria-label="Village parcel map"></div>
+            <div class="map-footer"><span>Village road</span><span class="road-line"></span></div>
+          </div>
+          <div id="map-legend" class="legend"></div>
+          <div id="parcel-detail" class="parcel-detail" aria-live="polite">Select a parcel to see its value and farming conditions.</div>
+        </section>
+
+        <aside class="terms-panel" aria-labelledby="terms-heading">
+          <div class="panel-heading"><div><h2 id="terms-heading">Farmer terms</h2></div></div>
+          <p class="terms-intro">Each farmer can set a maximum cash offer and a minimum request when losing acreage. These numbers are sample inputs, in lakh rupees.</p>
+          <div id="farmer-settings"></div>
+          <div class="actions"><button id="find-button" class="primary-button" type="button">Find exchanges</button><button id="reset-button" class="text-button" type="button">Reset terms</button></div>
+        </aside>
+      </div>
+
+      <section class="results" aria-labelledby="results-heading">
+        <div class="results-header"><div><h2 id="results-heading">Exchange options</h2><p class="results-caption">Every option reduces separate blocks and meets the sample limits entered above. The search covers all one-plot exchanges among two or three farmers.</p></div><span id="results-count" class="results-count"></span></div>
+        <div class="results-body"><div id="proposal-list" class="proposal-list"></div><div id="proposal-detail" class="proposal-detail"></div></div>
+      </section>
+
+      <details id="data-panel" class="data-panel">
+        <summary><span><span class="section-kicker">Pilot data</span><strong>Edit farmers and parcels</strong><small id="data-count"></small></span><span class="summary-action">Open editor</span></summary>
+        <div class="data-content">
+          <p>Changes apply when you select Save village data. The grid is schematic; check plot records and boundaries separately. Data stays in this browser unless you export it.</p>
+          <div id="data-error" class="data-error" role="alert" hidden></div>
+          <div class="data-section-heading"><h3>Farmers</h3><button id="add-farmer" type="button" class="outline-button">Add farmer</button></div>
+          <div id="data-farmers" class="table-scroll"></div>
+          <div class="data-section-heading"><h3>Parcels</h3><button id="add-parcel" type="button" class="outline-button">Add parcel</button></div>
+          <div id="data-parcels" class="table-scroll"></div>
+          <div class="data-actions"><button id="save-data" type="button" class="primary-button">Save village data</button><button id="export-data" type="button" class="outline-button">Export JSON</button><label class="outline-button import-label">Import JSON<input id="import-data" type="file" accept="application/json,.json" /></label><button id="reset-data" type="button" class="text-button">Restore sample village</button></div>
+          <p id="data-status" class="data-status" role="status"></p>
+          <label id="export-fallback" class="export-fallback" hidden>Backup JSON<textarea id="export-text" readonly rows="8" aria-label="Backup JSON"></textarea><small>If the download is blocked, copy this text into a .json file. It contains the saved village data.</small></label>
+        </div>
+      </details>
+
+      <section class="method" aria-labelledby="method-heading">
+        <h2 id="method-heading">What the planner checks</h2>
+        <div class="method-grid"><p><strong>1. Exchange land.</strong> Two or three farmers each pass one plot to another farmer in the group.</p><p><strong>2. Balance cash.</strong> Requests for lost acreage or a lower-scoring holding are paid by farmers whose gain leaves room within their offers.</p><p><strong>3. Check every farmer.</strong> No participant falls below their stated minimum gain. At least one scattered block disappears.</p></div>
+        <p class="method-note">The scores are adjustable planning assumptions, not official valuations or legal approval. Any real exchange needs verified records, independent valuation, informed agreement and the applicable state process.</p>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="./src/app.js?v=survey-desk-4"></script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # Fieldwise MVP
 
+[Open the live demo](https://dhanunjay1729.github.io/fieldwise-mvp/).
+
 A local planner for voluntary farmland exchanges. It finds two- and three-farmer parcel cycles, scores farming conditions and compactness, and suggests cash settlement within each farmer's entered limits.
 
 The site is static: its HTML, CSS, and JavaScript can be published directly from the repository root with GitHub Pages. Village edits stay in the visitor's browser; there is no server-side account or shared database.
